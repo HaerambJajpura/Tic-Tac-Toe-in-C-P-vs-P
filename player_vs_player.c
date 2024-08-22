@@ -1,6 +1,5 @@
 // Player vs Player
 
-
 #include <stdio.h>
 #include <stdlib.h>
 char board_data[9];
@@ -63,21 +62,21 @@ int print_your_turn(int t)
         {
             printf("Enter a valid choice index. it must be from 0 to 8\n");
         }
-        else if (board_state[c]==1)
+        else if (board_state[c] == 1)
         {
             printf("its already filled!!\n");
         }
-        else if(board_state[c]==0)
+        else if (board_state[c] == 0)
         {
-            if(turn==1)
+            if (turn == 1)
             {
-                board_data[c]='x';
+                board_data[c] = 'x';
             }
-            if(turn==0)
+            if (turn == 0)
             {
-                board_data[c]='o';
+                board_data[c] = 'o';
             }
-            board_state[c]=1;
+            board_state[c] = 1;
             break;
         }
     }
@@ -97,68 +96,78 @@ void switch_turn()
 }
 int check_win(char ch)
 {
-    if(board_data[0]==ch&&board_data[1]==ch&&board_data[2]==ch)
+    if (board_data[0] == ch && board_data[1] == ch && board_data[2] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[3]==ch&&board_data[4]==ch&&board_data[5]==ch)
+    if (board_data[3] == ch && board_data[4] == ch && board_data[5] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[6]==ch&&board_data[7]==ch&&board_data[8]==ch)
+    if (board_data[6] == ch && board_data[7] == ch && board_data[8] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[0]==ch&&board_data[3]==ch&&board_data[6]==ch)
+    if (board_data[0] == ch && board_data[3] == ch && board_data[6] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[1]==ch&&board_data[4]==ch&&board_data[7]==ch)
+    if (board_data[1] == ch && board_data[4] == ch && board_data[7] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[2]==ch&&board_data[5]==ch&&board_data[8]==ch)
+    if (board_data[2] == ch && board_data[5] == ch && board_data[8] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[0]==ch&&board_data[4]==ch&&board_data[8]==ch)
+    if (board_data[0] == ch && board_data[4] == ch && board_data[8] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
-    if(board_data[2]==ch&&board_data[4]==ch&&board_data[6]==ch)
+    if (board_data[2] == ch && board_data[4] == ch && board_data[6] == ch)
     {
-        printf("%c wins\n",ch);
+        printf("%c wins\n", ch);
         return 1;
     }
 }
+
 void main()
 {
     set_all_board_values();
     turn = 1; // setting first turn to X
     int game_over;
-    game_over=2;
+    int chance_ongoing;
+    chance_ongoing = 0;
+    game_over = 2;
     while (1)
     {
         system("cls");
-        display_reference();
-        display_board();
-        choice_index = print_your_turn(turn);
-        switch_turn();
-        game_over=check_win('x');
-        if(game_over==1)
+       // printf("chance %d\n", chance_ongoing);
+        chance_ongoing++;
+        if (chance_ongoing >9)
         {
             break;
         }
 
-        game_over=check_win('o');
-        if(game_over==1)
+        display_reference();
+        display_board();
+        choice_index = print_your_turn(turn);
+        switch_turn();
+        game_over = check_win('x');
+        if (game_over == 1)
+        {
+            break;
+        }
+
+        game_over = check_win('o');
+        if (game_over == 1)
         {
             break;
         }
@@ -166,7 +175,11 @@ void main()
     system("cls");
     display_reference();
     display_board();
-    game_over=check_win('x');
-    game_over=check_win('o');
+    game_over = check_win('x');
+    game_over = check_win('o');
+    if (game_over != 1)
+    {
+        printf("Its a draw.\n");
+    }
     system("pause");
 }
